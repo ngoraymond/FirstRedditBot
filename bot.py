@@ -10,11 +10,12 @@ def main():
     reddit = praw.Reddit('bot')
     subred = reddit.subreddit('College_Prestige')
     risingSubs = ['all', 'funny','memes','dankmemes','wallstreetbets']
-    index = 0
+    index = 1
     while True:
         print("--------------------------------------")
         # Get top 5 rising posts in the risingSubs list
-        for submission in reddit.subreddit(risingSubs[index]).rising(limit=5):
+        currentSub = reddit.subreddit(risingSubs[index])
+        for submission in currentSub.rising(limit=5):
             print(submission.title)
             #print(submission.permalink)
             #print(submission.url)
@@ -35,15 +36,16 @@ def main():
                     f.write(submission.permalink+'\n')
                 except:
                     f.write('\n')
-            time.sleep(random.randint(1,5))
+            time.sleep(random.randint(5,30))
             #Create permalink of original post as a comment
-
-            time.sleep(random.randint(1,5))
+            for subReply in reddit.redditor('Awareness-Infinite').submissions.new(limit=1):
+                subReply.reply('From: https://www.reddit.com/'+submission.permalink)
+            time.sleep(random.randint(3,10))
         #move on to the next subreddit
         index = (index+1)%(len(risingSubs))
         #wait up to 10 minutes
         sleeptime = random.randint(60,600)
-        print('Sleeping for '+sleeptime+' seconds')
+        print('Sleeping for '+str(sleeptime)+' seconds')
         time.sleep(sleeptime)
 
 if __name__ == "__main__":
