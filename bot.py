@@ -9,12 +9,13 @@ import random
 def main():
     reddit = praw.Reddit('bot')
     subred = reddit.subreddit('College_Prestige')
-    risingSubs = ['all', 'funny','memes','dankmemes','wallstreetbets']
+    risingSubs = ['all', 'funny','memes','dankmemes','wallstreetbets','stocks']
     index = 1
     while True:
         print("--------------------------------------")
         # Get top 5 rising posts in the risingSubs list
         currentSub = reddit.subreddit(risingSubs[index])
+        print(currentSub)
         for submission in currentSub.rising(limit=5):
             print(submission.title)
             #print(submission.permalink)
