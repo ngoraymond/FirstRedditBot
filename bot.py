@@ -15,7 +15,7 @@ def main():
         print("--------------------------------------")
         # Get top 5 rising posts in the risingSubs list
         currentSub = reddit.subreddit(risingSubs[index])
-        print(currentSub)
+        print('r/'+risingSubs[index])
         for submission in currentSub.rising(limit=5):
             print(submission.title)
             #print(submission.permalink)
@@ -40,7 +40,7 @@ def main():
             time.sleep(random.randint(5,30))
             #Create permalink of original post as a comment
             for subReply in reddit.redditor('Awareness-Infinite').submissions.new(limit=1):
-                subReply.reply('From: https://www.reddit.com/'+submission.permalink)
+                subReply.reply('From: https://www.reddit.com'+submission.permalink)
             time.sleep(random.randint(3,10))
         #move on to the next subreddit
         index = (index+1)%(len(risingSubs))
